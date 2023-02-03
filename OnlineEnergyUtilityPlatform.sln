@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineEnergyUtilityPlatform", "OnlineEnergyUtilityPlatform\OnlineEnergyUtilityPlatform.csproj", "{22A2EF36-A930-4184-83DE-FBD9F4C3D6A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22A2EF36-A930-4184-83DE-FBD9F4C3D6A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22A2EF36-A930-4184-83DE-FBD9F4C3D6A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22A2EF36-A930-4184-83DE-FBD9F4C3D6A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22A2EF36-A930-4184-83DE-FBD9F4C3D6A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {905C858C-ACCF-43A4-BBC6-D35C0A000E00}
+	EndGlobalSection
+EndGlobal
