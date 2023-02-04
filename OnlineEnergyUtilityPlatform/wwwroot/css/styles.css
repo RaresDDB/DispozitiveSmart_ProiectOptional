@@ -1,0 +1,235 @@
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.no-padding-container {
+    padding: 0 !important;
+}
+
+.logo-header {
+    max-width: 4rem;
+    z-index: 10;
+}
+
+.logo-homepage {
+    width: 28rem;
+    z-index: 10;
+}
+
+.header-homepage-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navigation-container-homepage {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    text-decoration: none;
+    list-style-type: none;
+    background-color: black;
+    height: 3rem;
+    margin-bottom: 0;
+}
+
+.navigation-item {
+    text-decoration: none;
+    color: white;
+    margin: 3rem;
+}
+
+.global-font {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.logo-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    color: forestgreen;
+    font-weight: 800;
+}
+
+.logo-link:link {
+    text-decoration: none;
+}
+
+.footer-container {
+    color: white;
+    background-color: black;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.my-account-area {
+    border: solid 1px;
+    width: 70vw;
+    padding: 1rem;
+    align-items: center;
+    margin: 1rem;
+    transform: translate(0%, 0%);
+    background-color: white;
+}
+
+.register-input-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.authenticate-title {
+    font-size: 2rem;
+    color: darkgray;
+    font-weight: bold;
+}
+
+.register-instr-container {
+    margin-bottom: 1rem;
+}
+
+.header-line {
+    margin-top: 0.1rem;
+}
+
+.login-line {
+    width: inherit;
+}
+
+.login-image-container {
+    width: 25vw;
+    height: 20vw;
+    margin-left: 6rem;
+}
+
+.login-image-fit {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.authenticate-input {
+    display: flex;
+    border-color: darkgray;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 4px;
+    width: 35rem;
+    height: 2.5rem;
+    padding: 0 1rem 0;
+    margin: 0 0 2rem 0;
+}
+
+.authenticate-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.authenticate-button {
+    padding: 0.5rem 5rem 0.5rem 5rem;
+    background-color: gray;
+    border-color: gray;
+    border-style: solid;
+    border-width: thin;
+    color: white;
+    font-weight: bold;
+}
+
+.register-image-container {
+    width: 25vw;
+    height: 22vw;
+    margin-left: 6rem;
+}
+
+.logout-container {
+    height: 40px !important;
+}
+
+.myaccount-icon-container {
+    display: none;
+    position: fixed;
+    width: 15rem;
+    z-index: 10;
+    background-color: #f2f2f2;
+    padding: 0.5rem;
+}
+
+.my-account-icon-pos {
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-image {
+    width: 1.8rem;
+    margin-top: 1rem;
+}
+
+    .logout-image:hover {
+        cursor: pointer;
+    }
+
+.header-image {
+    width: 1.8rem;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 
+        'FILL' 0, 
+        'wght' 400, 
+        'GRAD' 0, 
+        'opsz' 48
+}
+
+.md-theme-default a:not(.md-button) {
+    color: white !important;
+}
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    .btn:hover {
+        background-color: RoyalBlue;
+    }
+
+.selected-space {
+    padding-top: 10px;
+}
+
+.add-form-header {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.first-child-add-form {
+    width: 95%;
+}
+
+second-child-add-form {
+    width: 5%;
+}
+
+.allocate-button-cantainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
