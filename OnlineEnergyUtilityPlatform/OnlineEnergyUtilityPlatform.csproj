@@ -32,7 +32,6 @@
     <Folder Include="Repositories\" />
     <Folder Include="Services\Implementations\" />
     <Folder Include="Services\Interfaces\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>
