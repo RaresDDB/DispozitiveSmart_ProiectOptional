@@ -28,8 +28,8 @@
     <Folder Include="DTOs\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Scripts\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Scripts\app\" />
     <Folder Include="Services\Implementations\" />
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
