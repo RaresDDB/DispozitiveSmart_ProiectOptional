@@ -1,0 +1,67 @@
+﻿<header class="row">
+    <div class="col header-homepage-container" style="width:50vh;">
+        <a class="logo-link" href="/Client">
+            <div>
+                <span class="logo-title">
+                    <img class="logo-header" src="~/logo.png" alt="Logo" />
+                    SEP
+                </span>
+            </div>
+        </a>
+    </div>
+    <div class="col header-container">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <img class="header-image" id="myAccountIcon" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" style="color: black" alt="My Account" />
+
+            <div id="myAccountIconContainer" class="myaccount-icon-container" style="top: 50px;">
+                @await Component.InvokeAsync("MyAccountIcon")
+            </div>
+        }
+    </div>
+</header>
+
+<script>
+    const myAccountIconContainer = document.getElementById("myAccountIconContainer");
+    const myAccountIcon = document.getElementById("myAccountIcon");
+
+    if (myAccountIconContainer && myAccountIcon) {
+        var isMouseOnMyAccountIcon = false;
+        var isMouseOnMyAccountIconContainer = false;
+
+        myAccountIcon.onmouseover = function() {
+            isMouseOnMyAccountIcon = true;
+        };
+
+        myAccountIcon.onmouseout = function() {
+            setTimeout(function() {
+                isMouseOnMyAccountIcon = false;
+            }, 300);
+        };
+
+        myAccountIconContainer.onmouseover = function() {
+            isMouseOnMyAccountIconContainer = true;
+        };
+
+        myAccountIconContainer.onmouseout = function() {
+            isMouseOnMyAccountIconContainer = false;
+        };
+
+        $('body').mousemove(function(event) {
+            if (isMouseOnMyAccountIcon || isMouseOnMyAccountIconContainer) {
+                myAccountIconContainer.style.display = "block";
+            }
+            else {
+                myAccountIconContainer.style.display = "none";
+            }
+        });
+
+        var viewportOffset = myAccountIcon.getBoundingClientRect();
+        var left = viewportOffset.left;
+        left -= 105;
+        left = "" + left + "px";
+        myAccountIconContainer.style.left = left;
+    }
+</script>
+
+<script src="/bundle/Logout.js"></script>

@@ -1,0 +1,13 @@
+﻿<nav class="row">
+    <ul class="col navigation-container-homepage global-font" background:black;">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <li>
+                <a class="navigation-item" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+            </li>
+            <li>
+                <a class="navigation-item" asp-area="" asp-controller="Register" asp-action="Index">Register</a>
+            </li>
+        }
+    </ul>
+</nav>

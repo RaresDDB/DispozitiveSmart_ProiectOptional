@@ -1,0 +1,29 @@
+﻿@using OnlineEnergyUtilityPlatform.ViewModels
+@model LoginViewModel
+
+<div class="row my-account-area">
+    <div class="col-auto register-input-container">
+        <h1 class="authenticate-title">
+            Login
+        </h1>
+
+        <div class="register-instr-container">
+            Please enter your username and password below.
+            <hr class="header-line login-line" />
+        </div>
+
+        <div id="login">
+            <login></login>
+        </div>
+
+        <div>
+            Don't have an account?
+            <a href="@Model.RegisterUrl">Sign up</a>
+        </div>
+    </div>
+    <div class="col-auto login-image-container">
+        <img class="login-image-fit" src="https://theqrking.com/image/images/login.jpg" alt="Login Image" />
+    </div>
+</div>
+
+<script src="/bundle/Login.js"></script>

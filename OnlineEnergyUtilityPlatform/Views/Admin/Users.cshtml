@@ -1,0 +1,17 @@
+﻿@using OnlineEnergyUtilityPlatform.ViewModels
+@using System.Text.Json
+@model GetUsersViewModel
+
+@{
+    Layout = "~/Views/Shared/Layouts/_AdminLayout.cshtml";
+}
+
+<div id="adminuser">
+    <adminuser :users="users"></adminuser>
+</div>
+
+<script>
+    var users = @Html.Raw(JsonSerializer.Serialize(@Model.Users));
+</script>
+
+<script src="/bundle/Adminuser.js"></script>
