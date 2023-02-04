@@ -6,6 +6,7 @@ using OnlineEnergyUtilityPlatform.Data;
 using OnlineEnergyUtilityPlatform.Models;
 using OnlineEnergyUtilityPlatform.Services.Implementations;
 using OnlineEnergyUtilityPlatform.Services.Interfaces;
+using System.Net;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,11 +41,22 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true
     };
 });
+
 builder.Services.AddCors();
 builder.Services.AddAuthorization();
 builder.Services.AddSession(options => {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
+
+
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.AddHttpsRedirection(options =>
+    {
+        options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
+        options.HttpsPort = 443;
+    });
+}
 
 var app = builder.Build();
 
@@ -56,7 +68,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
@@ -71,6 +83,13 @@ app.Use(async (context, next) =>
 });
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors(builder => builder
+    .WithOrigins("http://localhost:7115")
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+);
 
 app.MapControllerRoute(
     name: "default",
