@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OnlineEnergyUtilityPlatform.Data;
 using OnlineEnergyUtilityPlatform.Models;
+using OnlineEnergyUtilityPlatform.Repositories.Implementations;
+using OnlineEnergyUtilityPlatform.Repositories.Interfaces;
 using OnlineEnergyUtilityPlatform.Services.Implementations;
 using OnlineEnergyUtilityPlatform.Services.Interfaces;
 using System.Net;
@@ -13,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
+builder.Services.AddScoped<IDeviceService, DeviceService>();
 
 builder.Services.AddDbContext<EnergyPlatformDbContext>(
     o => o.UseNpgsql(builder.Configuration.GetConnectionString("EnergyPlatformDb"))
