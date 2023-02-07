@@ -13,13 +13,11 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
     {
         private readonly IDeviceRepository _deviceRepository;
         private readonly UserManager<User> _userManager;
-        private readonly IMeasurementRepository _measurementRepository;
 
-        public DeviceService(IDeviceRepository deviceRepository, UserManager<User> userManager, IMeasurementRepository measurementRepository)
+        public DeviceService(IDeviceRepository deviceRepository, UserManager<User> userManager)
         {
             _deviceRepository = deviceRepository;
             _userManager = userManager;
-            _measurementRepository = measurementRepository;
         }
 
         public List<GetDeviceDTO> GetAllDevices()
@@ -170,16 +168,6 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
             if(deleteDevice == null)
             {
                 throw new DeviceException("The device doesn't exist!");
-            }
-
-            var measurements = _measurementRepository.GetAllMeasurementsByDevice(device.Id);
-
-            if(measurements != null)
-            {
-                foreach(var measurement in measurements)
-                {
-                    _measurementRepository.DeleteMeasurement(measurement);
-                }
             }
 
             _deviceRepository.RemoveDevice(deleteDevice);
