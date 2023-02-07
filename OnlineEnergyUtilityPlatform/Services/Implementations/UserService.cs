@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using OnlineEnergyUtilityPlatform.DTOs.Device;
 using OnlineEnergyUtilityPlatform.DTOs.User;
 using OnlineEnergyUtilityPlatform.Exceptions;
 using OnlineEnergyUtilityPlatform.Models;
+using OnlineEnergyUtilityPlatform.Repositories.Interfaces;
 using OnlineEnergyUtilityPlatform.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,17 +18,21 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IDeviceService _deviceService;
+        private readonly IDeviceRepository _deviceRepository;
 
-        public UserService(UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager)
+        public UserService(UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager, IDeviceService deviceService, IDeviceRepository deviceRepository)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _signInManager = signInManager;  
+            _signInManager = signInManager;
+            _deviceService = deviceService;
+            _deviceRepository = deviceRepository;
         }
 
         public async Task<GetUserDTO> Register(AddUserDTO userToValidate)
         {
-            if(!IsValidUsername(userToValidate.Username))
+            if (!IsValidUsername(userToValidate.Username))
             {
                 throw new UserException("Username minimum 4 characters requierd!");
             }
@@ -38,7 +44,7 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
                 throw new UserException("Username already exist!");
             }
 
-            if(!IsValidEmail(userToValidate.Email))
+            if (!IsValidEmail(userToValidate.Email))
             {
                 throw new UserException("Bad email format!");
             }
@@ -50,23 +56,23 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
                 throw new UserException("Email already exist!");
             }
 
-            var user = new User { UserName = userToValidate.Username, Email = userToValidate.Email};
+            var user = new User { UserName = userToValidate.Username, Email = userToValidate.Email };
             var userCreated = await _userManager.CreateAsync(user, userToValidate.Password);
 
-            if(!userCreated.Succeeded)
+            if (!userCreated.Succeeded)
             {
                 var errorMsg = userCreated.Errors.First().Description;
                 throw new UserException(errorMsg);
             }
 
             var clientRole = _roleManager.Roles.ToList().FirstOrDefault(x => x.Name.Equals("client")).Name;
-            if(string.IsNullOrEmpty(clientRole))
+            if (string.IsNullOrEmpty(clientRole))
             {
                 clientRole = string.Empty;
             }
 
             var roleExist = await _roleManager.RoleExistsAsync(clientRole);
-            if(!roleExist)
+            if (!roleExist)
             {
                 await _roleManager.CreateAsync(new Role { Name = clientRole });
             }
@@ -82,14 +88,14 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
         {
             var attemptUser = await _userManager.FindByNameAsync(user.Username);
 
-            if(attemptUser == null)
+            if (attemptUser == null)
             {
                 throw new UserException("The user with specified username not found!");
             }
 
             var authenticateUserResult = await _signInManager.PasswordSignInAsync(attemptUser, user.Password, false, false);
 
-            if(!authenticateUserResult.Succeeded)
+            if (!authenticateUserResult.Succeeded)
             {
                 throw new UserException("The password is incorrect!");
             }
@@ -116,7 +122,7 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
             };
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            var jwtToken = tokenHandler.WriteToken(token);           
+            var jwtToken = tokenHandler.WriteToken(token);
             var userRole = _userManager.GetRolesAsync(attemptUser).Result.FirstOrDefault();
             var authenticateUser = new AuthenticateUserDTO { Id = attemptUser.Id, UserName = attemptUser.UserName, Email = attemptUser.Email, Token = jwtToken, Role = userRole };
             await _userManager.SetAuthenticationTokenAsync(attemptUser, "client platform", "auth token", jwtToken);
@@ -136,9 +142,9 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
 
             foreach (User user in users)
             {
-                usersDTO.Add(new GetUserDTO {id = user.Id, username = user.UserName, email = user.Email });
+                usersDTO.Add(new GetUserDTO { id = user.Id, username = user.UserName, email = user.Email });
             }
-          
+
             return usersDTO;
         }
 
@@ -146,12 +152,12 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
         {
             var existUser = await _userManager.FindByIdAsync(id);
 
-            if(existUser == null)
+            if (existUser == null)
             {
                 throw new UserException("The user doesn't exist!");
             }
 
-            var currentUser = new GetUserDTO {id = existUser.Id, email = existUser.Email, username = existUser.UserName };
+            var currentUser = new GetUserDTO { id = existUser.Id, email = existUser.Email, username = existUser.UserName };
 
             return currentUser;
         }
@@ -160,7 +166,7 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
         {
             var currentUser = await _userManager.FindByIdAsync(updatedUser.Id);
 
-            if(currentUser == null)
+            if (currentUser == null)
             {
                 throw new UserException("The user doesn't exist!");
             }
@@ -178,10 +184,10 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
             }
             else
             {
-                if(usernameCount == 1)
+                if (usernameCount == 1)
                 {
                     var identicalUser = await _userManager.FindByNameAsync(updatedUser.Username);
-                    if(!identicalUser.Id.Equals(currentUser.Id))
+                    if (!identicalUser.Id.Equals(currentUser.Id))
                     {
                         throw new UserException("Username already exist!");
                     }
@@ -201,7 +207,7 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
             }
             else
             {
-                if(emailCount == 1)
+                if (emailCount == 1)
                 {
                     var identicalUser = await _userManager.FindByEmailAsync(updatedUser.Email);
                     if (!identicalUser.Id.Equals(currentUser.Id))
@@ -211,7 +217,7 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
                 }
             }
 
-            if(currentUser.UserName.Equals(updatedUser.Username) && currentUser.Email.Equals(updatedUser.Email))
+            if (currentUser.UserName.Equals(updatedUser.Username) && currentUser.Email.Equals(updatedUser.Email))
             {
                 throw new UserException("The user values ​​have not changed!");
             }
@@ -220,7 +226,7 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
             currentUser.Email = updatedUser.Email;
             var result = await _userManager.UpdateAsync(currentUser);
 
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 throw new UserException("The user cannot be updated!");
             }
@@ -232,17 +238,24 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
         {
             var existUser = await _userManager.FindByIdAsync(user.Id);
 
-            if(existUser == null)
+            if (existUser == null)
             {
                 throw new UserException("The user doesn't exist!");
             }
 
             var deleteRole = await _userManager.GetRolesAsync(existUser);
             await _userManager.RemoveFromRoleAsync(existUser, deleteRole.FirstOrDefault(x => x.Equals("client")));
+            var devices = _deviceRepository.GetAllDevicesByUserId(existUser.Id);
+
+            foreach (var device in devices)
+            {
+                var deviceDTO = new DeleteDeviceDTO { Id = device.Id };
+                _deviceService.DeallocateUserToDevice(deviceDTO);
+            }
 
             var result = await _userManager.DeleteAsync(existUser);
 
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 throw new UserException("The user cannot be deleted!");
             }
@@ -264,7 +277,7 @@ namespace OnlineEnergyUtilityPlatform.Services.Implementations
 
             if (trimmedEmail.EndsWith("."))
             {
-                return false; 
+                return false;
             }
             try
             {
