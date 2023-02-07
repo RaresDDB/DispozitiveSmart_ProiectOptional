@@ -1,0 +1,25 @@
+﻿@using OnlineEnergyUtilityPlatform.ViewModels
+@using System.Text.Json
+@model AllocateUsersDevicesViewModel
+
+@{
+    Layout = "~/Views/Shared/Layouts/_AdminLayout.cshtml";
+}
+
+<div style="margin-top: 5rem">
+    <div style="display: flex; justify-content: center;">
+        <h2>Allocate</h2>
+    </div>
+
+    <div id="allocatedevice">
+        <allocatedevice :adevices="adevices" :ausers="ausers"></allocatedevice>
+    </div>
+</div>
+
+
+<script>
+    var adevices = @Html.Raw(JsonSerializer.Serialize(@Model.Devices));
+    var ausers = @Html.Raw(JsonSerializer.Serialize(@Model.Users));
+</script>
+
+<script src="/bundle/Allocatedevice.js"></script>

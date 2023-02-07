@@ -1,0 +1,17 @@
+﻿@using OnlineEnergyUtilityPlatform.ViewModels
+@using System.Text.Json
+@model GetDevicesViewModel
+
+@{
+    Layout = "~/Views/Shared/Layouts/_AdminLayout.cshtml";
+}
+
+<div id="admindevice">
+    <admindevice :devices="devices"></admindevice>
+</div>
+
+<script>
+    var devices = @Html.Raw(JsonSerializer.Serialize(@Model.Devices));
+</script>
+
+<script src="/bundle/Admindevice.js"></script>

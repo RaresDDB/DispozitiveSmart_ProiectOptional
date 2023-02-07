@@ -1,0 +1,30 @@
+﻿@using OnlineEnergyUtilityPlatform.ViewModels
+@using System.Text.Json
+@model GetDevicesViewModel
+
+@{
+    Layout = "~/Views/Shared/Layouts/_ClientLayout.cshtml";
+}
+
+<div style="margin-top: 3rem;">
+    <div style="display: flex; justify-content: center;">
+        <h2>My Devices</h2>
+    </div>
+    <div id="clientdevice">
+        <clientdevice :cdevices="cdevices"></clientdevice>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    var cdevices = @Html.Raw(JsonSerializer.Serialize(@Model.Devices));
+    // Create a new MutationObserver
+</script>
+
+<script src="/bundle/Clientdevice.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/message.js"></script>

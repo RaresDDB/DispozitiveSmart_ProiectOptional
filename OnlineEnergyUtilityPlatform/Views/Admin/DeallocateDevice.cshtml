@@ -1,0 +1,24 @@
+﻿@using OnlineEnergyUtilityPlatform.ViewModels
+@using System.Text.Json
+@model DeallocateUserDeviceViewModel
+
+@{
+    Layout = "~/Views/Shared/Layouts/_AdminLayout.cshtml";
+}
+
+<div style="margin-top: 5rem">
+    <div style="display: flex; justify-content: center;">
+        <h2>Deallocate</h2>
+    </div>
+
+    <div id="deallocatedevice">
+        <deallocatedevice :ddevices="ddevices"></deallocatedevice>
+    </div>
+</div>
+
+
+<script>
+    var ddevices = @Html.Raw(JsonSerializer.Serialize(@Model.Devices));
+</script>
+
+<script src="/bundle/Deallocatedevice.js"></script>
