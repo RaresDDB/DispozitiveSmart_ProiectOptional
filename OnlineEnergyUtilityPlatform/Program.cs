@@ -17,6 +17,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
 builder.Services.AddScoped<IDeviceService, DeviceService>();
+builder.Services.AddScoped<IMeasurementRepository, MeasurementRepository>();
+builder.Services.AddScoped<IMeasurementService, MeasurementService>();
 
 builder.Services.AddDbContext<EnergyPlatformDbContext>(
     o => o.UseNpgsql(builder.Configuration.GetConnectionString("EnergyPlatformDb"))
