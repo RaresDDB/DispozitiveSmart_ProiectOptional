@@ -28,5 +28,16 @@ namespace OnlineEnergyUtilityPlatform.Controllers
 
             return View(new GetDevicesViewModel { Devices = userDevices.Result.Devices });
         }
+
+        [Authorize(Roles = "client")]
+        public IActionResult Measurements()
+        {
+            var deviceId = HttpContext.Request.Cookies["deviceId"];
+            var intDeviceId = Int32.Parse(deviceId);
+
+            var device = _deviceService.GetDeviceById(intDeviceId);
+
+            return View(new GetMeasurementsViewModel { Device = device });
+        }
     }
 }
