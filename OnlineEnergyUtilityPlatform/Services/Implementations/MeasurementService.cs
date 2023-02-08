@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using Newtonsoft.Json;
-using OnlineEnergyUtilityPlatform.DTOs.Measurement;
+﻿using OnlineEnergyUtilityPlatform.DTOs.Measurement;
 using OnlineEnergyUtilityPlatform.Exceptions;
 using OnlineEnergyUtilityPlatform.Models;
 using OnlineEnergyUtilityPlatform.Repositories.Interfaces;
