@@ -1,0 +1,22 @@
+﻿@using OnlineEnergyUtilityPlatform.ViewModels
+@using System.Text.Json
+@model GetMeasurementsViewModel
+
+@{
+    Layout = "~/Views/Shared/Layouts/_ClientLayout.cshtml";
+}
+
+<div style="margin-top: 3rem;">
+    <div style="display: flex; justify-content: center;">
+        <h2>My Device Daily Consumption</h2>
+    </div>
+    <div id="deviceconsumption">
+        <deviceconsumption :mdevice="mdevice"></deviceconsumption>
+    </div>
+</div>
+
+<script>
+    var mdevice = @Html.Raw(JsonSerializer.Serialize(@Model.Device));
+</script>
+
+<script src="/bundle/Deviceconsumption.js"></script>
